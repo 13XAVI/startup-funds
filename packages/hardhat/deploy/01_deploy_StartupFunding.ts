@@ -22,7 +22,7 @@ const deployStartupFunding: DeployFunction = async function (hre: HardhatRuntime
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("StartupFunding", {
+  await deploy("RewardToken", {
     from: deployer,
     // Contract constructor arguments
     args: [deployer],
@@ -31,9 +31,29 @@ const deployStartupFunding: DeployFunction = async function (hre: HardhatRuntime
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
+  const rewardToken: Contract = await hre.ethers.getContract("RewardToken", deployer);
 
+  console.log("✅ RewardToken deployed at xyz:", rewardToken.target);
+
+  // const txOwner = await rewardToken.transferOwnership(fundingContract.target);
+  // console.log("✅ RewardToken TX OWNER::", txOwner.hash);
+
+  // await hre.ethers.getContract<Contract>("StartupFunding", deployer);
   // Get the deployed contract to interact with it after deploying.
-  await hre.ethers.getContract<Contract>("StartupFunding", deployer);
+
+  await deploy("StartupFunding", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [rewardToken.target],
+    log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+  const fundingContract: Contract = await hre.ethers.getContract("StartupFunding", deployer);
+  console.log("✅ FundingContract deployed at ABC:", fundingContract.target);
+  const txOwner = await rewardToken.transferOwnership(fundingContract.target);
+  console.log("✅ RewardToken TX OWNER::", txOwner.hash);
 };
 
 export default deployStartupFunding;
