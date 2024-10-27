@@ -1,12 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import type { NextPage } from "next";
 import Background from "~~/components/Background";
+import RegistrationForm from "~~/components/RegistrationForm";
 import { BotSvg } from "~~/components/SVGs/SVGs";
-import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
   // const { address: connectedAddress } = useAccount();
+  const [signupModel, setSignupMode] = useState(false);
+  const HandleSignup = () => {
+    setSignupMode(!signupModel);
+  };
 
   return (
     <div className="relative w-full h-screen">
@@ -19,17 +24,21 @@ const Home: NextPage = () => {
       <div className=" absolute md:-top-12 top-12 -z-10 ">
         <Background />
       </div>
-      <div className="md:container px-4 flex mx-auto justify-center md:pt-24 pt-0 z-30 overflow-hidden">
+      <div className="md:container px-4 flex mx-auto justify-center md:pt-24 pt-0 -z-30 overflow-hidden">
         <BotSvg />
       </div>
-      <div className="absolute md:-top-24 -top-2 right-10 left-10 -z-20">
+      <div className="absolute right-10 left-10 ">
         <img src="/Vector.png" className="w-full h-full" style={{ objectFit: "cover" }} alt="background" />
       </div>
 
-      <div className="flex flex-col items-center justify-center mt-4 ">
-        <h2 className="text-2xl font-bold">Connect your wallet to start</h2>
-        <RainbowKitCustomConnectButton />
+      <div className="absolute  left-1/2 -translate-x-1/2  top-1/2 flex flex-col items-center justify-center gap-5  ">
+        <h2 className="text-4xl font-bold ">Register Your Self</h2>
+        <button className="border w-52 py-2 px-6 bg-violet-900 text-white rounded-full" onClick={HandleSignup}>
+          Register
+        </button>
       </div>
+
+      {signupModel && <RegistrationForm />}
     </div>
   );
 };
