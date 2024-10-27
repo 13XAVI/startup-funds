@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full max-h-screen overflow-hidden">
       <div className="px-5 pt-12">
         <h1 className="text-center">
           <span className="block text-2xl mb-2">Welcome to</span>
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
         <img src="/Vector.png" className="w-full h-full" style={{ objectFit: "cover" }} alt="background" />
       </div>
 
-      <div className="absolute  left-1/2 -translate-x-1/2  top-1/2 flex flex-col items-center justify-center gap-5  ">
+      <div className="absolute  left-1/2 -translate-x-1/2 pt-20  top-1/2 flex flex-col items-center justify-center gap-5  ">
         <h2 className="text-4xl font-bold ">Register Your Self</h2>
         <button className="border w-52 py-2 px-6 bg-violet-900 text-white rounded-full" onClick={HandleSignup}>
           Register

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import CampainForm from "./CampainForm";
+import { useState } from "react";
+import CampaignForm from "./CampainForm";
+import TableForm from "./TxTable";
 
 // import TableForm from "./TxTable";
 
@@ -11,12 +12,15 @@ function HomePage() {
     setCampainModel(!campainModel);
   };
   return (
-    <div className="flex justify-around items-center">
-      <button onClick={HandleRegistration} className=" py-3 px-6 bg-[188DFA] text-white ">
+    <div className="flex flex-col justify-around items-center mt-4 space-y-3 ">
+      <button
+        onClick={HandleRegistration}
+        className=" flex self-end py-3 px-2 bg-[188DFA] text-white bg-blue-500 rounded-md  mr-16"
+      >
         Register Campain
       </button>
-      {/* <TableForm /> */}
-      {campainModel && <CampainForm />}
+      <TableForm />
+      {campainModel && <CampaignForm />}
     </div>
   );
 }

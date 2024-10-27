@@ -65,7 +65,7 @@ export const Header = () => {
 
   return (
     <div
-      className="sticky  top-0 navbar  min-h-0 flex-shrink-0 justify-between  bg-[#131217]/70 shadow-md shadow-secondary px-0 sm:px-2"
+      className="sticky  top-0 navbar  min-h-0 flex-shrink-0 justify-between  bg-[#131217] shadow-md shadow-secondary px-0 sm:px-2"
       style={{ zIndex: "1000" }}
     >
       <div className="navbar-start w-auto lg:w-1/2">
