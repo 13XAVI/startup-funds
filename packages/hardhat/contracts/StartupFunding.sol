@@ -25,7 +25,7 @@ contract StartupFunding {
 		address userAddress;
 		string name;
 		string email;
-		InvestmentTier tier;
+		InvestmentTier tier; // User's investment tier
 		uint256 totalInvested; // Total amount invested
 		uint256 points; // Points earned
 		uint256 tokens; // Tokens earned
@@ -42,7 +42,7 @@ contract StartupFunding {
 		address[] donators;
 		uint256[] donations;
 	}
-
+	uint256 id = 1;
 	mapping(address => User) public users; // User registration
 	mapping(uint256 => Campaign) public campaigns; // Campaigns
 	uint256 public numberOfCampaigns = 0;
@@ -66,7 +66,7 @@ contract StartupFunding {
 		uint256 _deadline,
 		string memory _image
 	) public returns (uint256) {
-		Campaign storage campaign = campaigns[numberOfCampaigns];
+		Campaign memory campaign;
 		require(
 			_deadline > block.timestamp,
 			"Deadline should be in the future"
@@ -79,15 +79,20 @@ contract StartupFunding {
 		campaign.deadline = _deadline;
 		campaign.amountCollected = 0;
 		campaign.image = _image;
-
+		// uint256 id = uint256(bytes(_title, msg.sender));
+		campaigns[id] = campaign;
+		id++;
 		numberOfCampaigns++;
 		return numberOfCampaigns - 1;
 	}
 
-	// Donate to a campaign
 	function donateToCampaign(uint256 _id) public payable {
 		require(msg.value > 0, "Donation must be greater than zero");
+		// require(_id < numberOfCampaigns, "Campaign does not exist"); // Check if campaign exists
 		Campaign storage campaign = campaigns[_id];
+		require(campaign.owner != address(0), "Campaign not exist"); // Check campaign deadline
+		require(block.timestamp < campaign.deadline, "Campaign has expired"); // Check campaign deadline
+
 		campaign.donators.push(msg.sender);
 		campaign.donations.push(msg.value);
 
@@ -98,9 +103,9 @@ contract StartupFunding {
 
 		// Update user investment and points
 		users[msg.sender].totalInvested += msg.value;
-		uint256 pointsEarned = msg.value / 1 ether; // 1 point per Ether invested
+		uint256 pointsEarned = msg.value / 1 ether;
 		earnPoints(msg.sender, pointsEarned);
-		mintTokens(msg.sender, pointsEarned); // Mint tokens based on points earned
+		mintTokens(msg.sender, pointsEarned);
 
 		emit InvestmentUpdate(msg.sender, _id, "Donation successful");
 	}
