@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
 import { useState } from "react";
-import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+// import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Gift, Home, LogOut, PlusCircle, Send } from "lucide-react";
+import CreateCampaignForm from "~~/components/CreateCampaignForm";
+import TransferOwnership from "~~/components/TransferOwnership";
+import { Avatar, AvatarFallback, AvatarImage } from "~~/components/ui/avatar";
 
 function HomeDash() {
   const [activePage, setActivePage] = useState("home");
@@ -22,7 +23,7 @@ function HomeDash() {
       case "home":
         return (
           <>
-            <div className="flex justify-between items-center mb-6 bg-[#131217]/40">
+            <div className="flex justify-between items-center mb-6 ">
               <h1 className="text-3xl font-bold">Startup Fund Raise</h1>
               <Button>
                 <PlusCircle className="mr-2 h-4 w-4" /> Create Campaign
@@ -44,11 +45,14 @@ function HomeDash() {
           </>
         );
       case "create":
-        return <h2 className="text-2xl font-bold">Create Campaign</h2>;
+        return <CreateCampaignForm />;
       case "transfer":
-        return <h2 className="text-2xl font-bold">Transfer Token</h2>;
+        return <h2 className="text-2xl font-bold">Transfer</h2>;
       case "rewards":
         return <h2 className="text-2xl font-bold">Rewards</h2>;
+      case "transferOwnership":
+        return <TransferOwnership />;
+
       default:
         return null;
     }
@@ -61,12 +65,12 @@ function HomeDash() {
         <div className="p-4">
           <div className="flex items-center space-x-4 mb-6">
             <Avatar>
-              <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-              <AvatarFallback>UN</AvatarFallback>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>M</AvatarFallback>
             </Avatar>
             <div>
-              <h2 className="text-xl font-semibold">User Name</h2>
-              <p className="text-sm text-gray-500">user@example.com</p>
+              <h2 className="text-xl font-semibold">Mashami</h2>
+              <p className="text-sm text-gray-500">mashami@gmail.com</p>
             </div>
           </div>
           <nav className="space-y-2">
@@ -78,6 +82,10 @@ function HomeDash() {
             </Button>
             <Button variant="ghost" className="w-full justify-start" onClick={() => setActivePage("transfer")}>
               <Send className="mr-2 h-4 w-4" /> Transfer Token
+            </Button>
+
+            <Button variant="ghost" className="w-full justify-start" onClick={() => setActivePage("transferOwnership")}>
+              <Send className="mr-2 h-4 w-4" /> Transfer Ownership
             </Button>
             <Button variant="ghost" className="w-full justify-start" onClick={() => setActivePage("rewards")}>
               <Gift className="mr-2 h-4 w-4" /> Rewards
