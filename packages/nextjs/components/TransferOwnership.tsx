@@ -18,7 +18,6 @@ const TransferOwnership = () => {
       address: Yup.string().required("Address is required"),
     }),
     onSubmit: async values => {
-      console.log("Form values", values);
       await transferOwnership({
         functionName: "transferOwnership",
         args: [values.address],
