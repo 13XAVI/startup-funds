@@ -43,9 +43,9 @@ const TransactionComp = ({ txHash }: { txHash: Hash }) => {
         Back
       </button>
       {transaction ? (
-        <div className="overflow-x-auto">
-          <h2 className="text-3xl font-bold mb-4 text-center text-primary-content">Transaction Details</h2>{" "}
-          <table className="table rounded-lg bg-base-100 w-full shadow-lg md:table-lg table-md">
+        <div className="overflow-x-auto bg-[#131217]/90">
+          <h2 className="text-3xl font-bold mb-4 text-center  text-white">Transaction Details</h2>{" "}
+          <table className="table rounded-lg  w-full shadow-lg md:table-lg table-md">
             <tbody>
               <tr>
                 <td>
