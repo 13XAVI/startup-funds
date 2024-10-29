@@ -55,7 +55,6 @@ const CreateCampaignForm: React.FC<CreateCampaignFormProps> = ({ onClose, onCrea
           functionName: "createCampaign",
           args: [values.title, values.description, BigInt(targetValue), deadlineTimestamp, imageUrl],
         });
-        console.log(campaignIndex, "Campain index created");
 
         // Close the modal and redirect
         onClose();

@@ -33,7 +33,6 @@ const RegistrationForm = () => {
       email: Yup.string().email("Invalid email address").required("Email is required"),
     }),
     onSubmit: async values => {
-      console.log("Form values", values);
       await registerUser({
         functionName: "registerUser",
         args: [values.name, values.email],

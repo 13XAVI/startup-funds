@@ -33,10 +33,7 @@ const deployStartupFunding: DeployFunction = async function (hre: HardhatRuntime
   });
   const rewardToken: Contract = await hre.ethers.getContract("RewardToken", deployer);
 
-  console.log("✅ RewardToken deployed at xyz:", rewardToken.target);
-
   // const txOwner = await rewardToken.transferOwnership(fundingContract.target);
-  // console.log("✅ RewardToken TX OWNER::", txOwner.hash);
 
   // await hre.ethers.getContract<Contract>("StartupFunding", deployer);
   // Get the deployed contract to interact with it after deploying.

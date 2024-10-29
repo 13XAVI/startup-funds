@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Hand } from "lucide-react";
 import type { NextPage } from "next";
 import Background from "~~/components/Background";
 import RegistrationForm from "~~/components/RegistrationForm";
@@ -15,11 +16,12 @@ const Home: NextPage = () => {
 
   return (
     <div className="relative w-full max-h-screen overflow-hidden">
-      <div className="px-5 pt-12">
-        <h1 className="text-center">
-          <span className="block text-2xl mb-2">Welcome to</span>
-          <span className="block text-4xl font-bold">StartUp Fundraising Platform</span>
+      <div className="px-5 pt-12 mb-4">
+        <h1 className="text-center flex items-center justify-center gap-2">
+          <Hand className="text-white h-16" />
+          <span className="block text-2xl ">Welcome to</span>
         </h1>
+        <span className="block text-3xl font-bold text-center mb-2 ">STARTUPS FUNDRAISER PLATFORM</span>
       </div>
       <div className=" absolute md:-top-12 top-12 -z-10 ">
         <Background />
@@ -31,11 +33,11 @@ const Home: NextPage = () => {
         <img src="/Vector.png" className="w-full h-full" style={{ objectFit: "cover" }} alt="background" />
       </div>
 
-      <div className="absolute top-32 w-full">
-        <p className="w-[700px] mx-auto text-gray-300 text-center leading-[25px]">
+      <div className="absolute top-40 w-full">
+        <p className="w-[700px] mx-auto text-gray-300 text-center  text-lg leading-[25px]">
           Welcome to Startup Funds, the innovative fundraising platform where blockchain technology meets investment
           transparency. Whether you&#39;re a startup seeking funds or an investor looking to back exciting campaigns,
-          our platform ensures a secure, transparent, and rewarding experience for all.
+          our platform ensures a secure, transparent, and rewarding experience.
         </p>
       </div>
 

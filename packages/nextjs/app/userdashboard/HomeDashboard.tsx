@@ -1,10 +1,8 @@
 "use client";
 
-
 import { useMemo, useState } from "react";
-
-import { useEffect, useReducer, useState } from "react";
-
+import { useEffect, useReducer } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
 import TransactionPage from "../blockexplorer/transaction/[txHash]/page";
@@ -15,12 +13,9 @@ import CreateCampaignForm from "~~/components/CreateCampaignForm";
 import TransferOwnership from "~~/components/TransferOwnership";
 import { TrasfersForm } from "~~/components/TrasfersForm";
 import { Avatar, AvatarFallback, AvatarImage } from "~~/components/ui/avatar";
-
+import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { useAllContracts } from "~~/utils/scaffold-eth/contractsData";
-
-import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
-
 
 // Define the Campaign interface
 interface Campaign {
@@ -35,10 +30,9 @@ interface Campaign {
   donations: bigint[];
 }
 
-// Main component
 function HomeDash() {
   const [activePage, setActivePage] = useState("home");
-
+  const router = useRouter();
   const contractsData = useAllContracts();
   const contractNames = useMemo(() => Object.keys(contractsData) as ContractName[], [contractsData]);
 
@@ -46,14 +40,15 @@ function HomeDash() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [transactionReceipt, setTransactionReceipt] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const { data: allCampaigns } = useScaffoldReadContract({
+    contractName: "StartupFunding",
+    functionName: "getCampaigns",
+  });
 
-  // Fetch campaigns from the contract
+  const hanldleLogout = () => {
+    router.push("/");
+  };
   const fetchCampaigns = async (): Promise<Campaign[]> => {
-    const { data: allCampaigns } = await useScaffoldReadContract({
-      contractName: "StartupFunding",
-      functionName: "getCampaigns",
-    });
-
     // Map the campaigns to the correct Campaign type
     return (allCampaigns || []).map(campaign => ({
       owner: campaign.owner,
@@ -70,12 +65,16 @@ function HomeDash() {
   useEffect(() => {
     const loadCampaigns = async () => {
       const fetchedCampaigns = await fetchCampaigns();
+
       setCampaigns([...fetchedCampaigns]);
     };
+    console.log("fetched campaigns ", fetchCampaigns);
     loadCampaigns();
   }, []);
+
   const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(value => !value, false);
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo("StartupFunding");
+  useEffect(() => {}, [deployedContractData]);
   // Mock function to simulate creating a campaign
   const createCampaign = async (campaignData: any) => {
     // This is where you would implement your actual create campaign logic.
@@ -111,7 +110,6 @@ function HomeDash() {
       console.error(err);
     }
   };
-
 
   const renderTransactionReceipt = () => {
     if (!transactionReceipt) return null;
@@ -152,9 +150,7 @@ function HomeDash() {
                 </Card>
               ))}
             </div>
-            {/* <div>
-              <TransactionPage params={} key={} />
-            </div> */}
+
             {createCampaignModel && (
               <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
                 <div className="bg-black/70 p-3 rounded-lg shadow-lg w-full max-w-lg relative">
@@ -169,26 +165,96 @@ function HomeDash() {
               </div>
             )}
             <div>
-              <h1 className="text-3xl flex justify-center items-center">All Transaction Occured</h1>
-              {deployedContractData && (
-                <ContractVariables
-                  refreshDisplayVariables={refreshDisplayVariables}
-                  deployedContractData={deployedContractData}
-                />
-              )}
+              <h1 className="text-3xl flex justify-center items-center font-medium "> Transaction Occured</h1>
+              <div className="flex items-start justify-start p-4 border border-white rounded-lg ">
+                {deployedContractData && (
+                  <ContractVariables
+                    refreshDisplayVariables={refreshDisplayVariables}
+                    deployedContractData={deployedContractData}
+                  />
+                )}
+              </div>
             </div>
 
             {renderTransactionReceipt()}
           </>
         );
       case "transfer":
-
         return contractNames.map((contractName, i) => <TrasfersForm key={i} contractName={contractName} />);
 
-        return <h2 className="text-2xl font-bold">Transfer</h2>;
       case "allcampains":
-        return <h2 className="text-2xl font-bold">All campaigns</h2>;
+        return (
+          <div>
+            <h2 className="text-2xl font-bold">All campaigns</h2>
+            <table className="min-w-full min-h-full">
+              <thead className="text-[12px] leading-[26px]">
+                <tr className="bg-[#101313] rounded-[10px]">
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px] rounded-tl-lg rounded-bl-lg">
+                    ID
+                  </th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Owner</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Image</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Title</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Target</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Amount Collected</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Deadline</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Donators</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px]">Donations</th>
+                  <th className="px-4 text-left text-grey text-[12px] leading-[26px] rounded-tr-lg rounded-br-lg">
+                    Action
+                  </th>
+                </tr>
+                <tr className="h-[20px]"></tr>
+              </thead>
 
+              <tbody>
+                {!allCampaigns &&
+                  Array(6)
+                    .fill(null)
+                    .map((_, index) => (
+                      <tr
+                        key={index}
+                        className="border-b-[2.5px] min-w-full h-[60px] border-[#F5F6F6] last:border-none"
+                      >
+                        {Array(9)
+                          .fill(null)
+                          .map((_, cellIndex) => (
+                            <td key={cellIndex} className="">
+                              <div className="shadow-lg animate-pulse bg-slate-300 rounded-lg h-[40px]"></div>
+                            </td>
+                          ))}
+                      </tr>
+                    ))}
+
+                {allCampaigns?.map((campaign, index) => (
+                  <tr key={index} className="border-b-[2.5px] min-w-full h-[60px] border-[#F5F6F6] last:border-none">
+                    <td className="text-center">{index + 1}</td>
+                    <td className="text-center">{campaign.owner || "N/A"}</td>
+                    <td className="text-center">
+                      {campaign.image ? (
+                        <img src={campaign.image} alt={campaign.title} className="w-16 h-16 object-cover" />
+                      ) : (
+                        <div>No Image</div>
+                      )}
+                    </td>
+                    <td className="text-center">{campaign.title || "N/A"}</td>
+                    <td className="text-center">{String(campaign.target)}</td>
+                    <td className="text-center">{String(campaign.amountCollected)}</td>
+                    <td className="text-center">
+                      {campaign.deadline ? new Date(Number(campaign.deadline) * 1000).toLocaleDateString() : "N/A"}
+                    </td>
+
+                    <td className="text-center">{campaign.donators.length}</td>
+                    <td className="text-center">{campaign.donations.length}</td>
+                    <td className="text-center">
+                      <button className="text-blue-500 hover:underline">View</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
       case "rewards":
         return <h2 className="text-2xl font-bold">Rewards</h2>;
       case "transferOwnership":
@@ -232,7 +298,7 @@ function HomeDash() {
           </nav>
         </div>
         <div className="absolute bottom-4 left-4">
-          <Button variant="ghost" className="text-red-500 hover:text-red-700">
+          <Button variant="ghost" className="text-red-500 hover:text-red-700" onClick={hanldleLogout}>
             <LogOut className="mr-2 h-4 w-4" /> Logout
           </Button>
         </div>
