@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     RewardToken: {
-      address: "0x4c5859f0F772848b2D91F1D83E2Fe57935348029",
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [
@@ -450,8 +450,7 @@ const deployedContracts = {
       },
     },
     StartupFunding: {
-
-      address: "0x1291Be112d480055DaFd8a610b7d1e203891C274",
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       abi: [
         {
           inputs: [
