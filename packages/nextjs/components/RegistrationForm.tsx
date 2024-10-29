@@ -8,12 +8,11 @@ import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 const RegistrationForm = () => {
   const { writeContractAsync: registerUser } = useScaffoldWriteContract("StartupFunding");
-  const [isOpen, setIsOpen] = useState(true); // Control popup visibility
+  const [isOpen, setIsOpen] = useState(true);
   const popupRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const handleClose = () => setIsOpen(false);
 
-  // Close the popup when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -40,11 +39,11 @@ const RegistrationForm = () => {
         args: [values.name, values.email],
       });
       router.push("/userdashboard");
-      handleClose(); // Close popup on successful submit
+      handleClose();
     },
   });
 
-  if (!isOpen) return null; // Don't render if popup is closed
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
