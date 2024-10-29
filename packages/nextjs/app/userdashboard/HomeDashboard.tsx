@@ -1,12 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 "use client";
 
-import { useMemo, useState } from "react";
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
-import TransactionPage from "../blockexplorer/transaction/[txHash]/page";
-import { ContractUI } from "../debug/_components/contract";
 import { ContractVariables } from "../debug/_components/contract/ContractVariables";
 import { FolderSync, Gift, Home, ListCheck, LogOut, PlusCircle, Send } from "lucide-react";
 import CreateCampaignForm from "~~/components/CreateCampaignForm";
@@ -16,6 +14,160 @@ import { Avatar, AvatarFallback, AvatarImage } from "~~/components/ui/avatar";
 import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { useAllContracts } from "~~/utils/scaffold-eth/contractsData";
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 // Define the Campaign interface
 interface Campaign {
@@ -274,9 +426,9 @@ function HomeDash() {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>M</AvatarFallback>
             </Avatar>
-            <div>
-              <h2 className="text-xl font-semibold">User </h2>
-              <p className="text-sm text-gray-500">user@gmail.com</p>
+            <div className="flex flex-col space-y-px">
+              <h2 className="text-xl font-semibold">Mashami </h2>
+              <p className="text-sm text-gray-500">mashami@gmail.com</p>
             </div>
           </div>
           <nav className="space-y-2">

@@ -468,6 +468,31 @@ const deployedContracts = {
           inputs: [
             {
               indexed: true,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "title",
+              type: "string",
+            },
+          ],
+          name: "CampaignCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
               internalType: "address",
               name: "user",
               type: "address",
@@ -651,49 +676,12 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "getUserInfo",
+          name: "nextCampaignId",
           outputs: [
             {
-              components: [
-                {
-                  internalType: "address",
-                  name: "userAddress",
-                  type: "address",
-                },
-                {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "email",
-                  type: "string",
-                },
-                {
-                  internalType: "enum StartupFunding.InvestmentTier",
-                  name: "tier",
-                  type: "uint8",
-                },
-                {
-                  internalType: "uint256",
-                  name: "totalInvested",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "points",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "tokens",
-                  type: "uint256",
-                },
-              ],
-              internalType: "struct StartupFunding.User",
+              internalType: "uint256",
               name: "",
-              type: "tuple",
+              type: "uint256",
             },
           ],
           stateMutability: "view",
