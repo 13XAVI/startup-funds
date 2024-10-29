@@ -23,6 +23,7 @@ const CreateCampaignForm = () => {
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
       target: Yup.string().required("Target is required"),
+
       deadline: Yup.string().required("Deadline is required"),
       image: Yup.string().required("Image is required"),
     }),
