@@ -1,16 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
 // import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Gift, Home, LogOut, PlusCircle, Send } from "lucide-react";
 import CreateCampaignForm from "~~/components/CreateCampaignForm";
 import TransferOwnership from "~~/components/TransferOwnership";
+import { TrasfersForm } from "~~/components/TrasfersForm";
 import { Avatar, AvatarFallback, AvatarImage } from "~~/components/ui/avatar";
+import { ContractName } from "~~/utils/scaffold-eth/contract";
+import { useAllContracts } from "~~/utils/scaffold-eth/contractsData";
 
 function HomeDash() {
   const [activePage, setActivePage] = useState("home");
+  const contractsData = useAllContracts();
+  const contractNames = useMemo(() => Object.keys(contractsData) as ContractName[], [contractsData]);
 
   const campaigns = [
     { id: 1, name: "Tech Startup A", goal: "$500,000", raised: "$250,000" },
@@ -47,7 +52,7 @@ function HomeDash() {
       case "create":
         return <CreateCampaignForm />;
       case "transfer":
-        return <h2 className="text-2xl font-bold">Transfer</h2>;
+        return contractNames.map((contractName, i) => <TrasfersForm key={i} contractName={contractName} />);
       case "rewards":
         return <h2 className="text-2xl font-bold">Rewards</h2>;
       case "transferOwnership":
