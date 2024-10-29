@@ -1,6 +1,10 @@
 "use client";
 
+
+import { useMemo, useState } from "react";
+
 import { useEffect, useReducer, useState } from "react";
+
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
 import TransactionPage from "../blockexplorer/transaction/[txHash]/page";
@@ -9,8 +13,14 @@ import { ContractVariables } from "../debug/_components/contract/ContractVariabl
 import { FolderSync, Gift, Home, ListCheck, LogOut, PlusCircle, Send } from "lucide-react";
 import CreateCampaignForm from "~~/components/CreateCampaignForm";
 import TransferOwnership from "~~/components/TransferOwnership";
+import { TrasfersForm } from "~~/components/TrasfersForm";
 import { Avatar, AvatarFallback, AvatarImage } from "~~/components/ui/avatar";
+
+import { ContractName } from "~~/utils/scaffold-eth/contract";
+import { useAllContracts } from "~~/utils/scaffold-eth/contractsData";
+
 import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
+
 
 // Define the Campaign interface
 interface Campaign {
@@ -28,6 +38,10 @@ interface Campaign {
 // Main component
 function HomeDash() {
   const [activePage, setActivePage] = useState("home");
+
+  const contractsData = useAllContracts();
+  const contractNames = useMemo(() => Object.keys(contractsData) as ContractName[], [contractsData]);
+
   const [createCampaignModel, setCreateCampaignModel] = useState(false);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [transactionReceipt, setTransactionReceipt] = useState<any>(null);
@@ -98,6 +112,7 @@ function HomeDash() {
     }
   };
 
+
   const renderTransactionReceipt = () => {
     if (!transactionReceipt) return null;
 
@@ -167,9 +182,13 @@ function HomeDash() {
           </>
         );
       case "transfer":
+
+        return contractNames.map((contractName, i) => <TrasfersForm key={i} contractName={contractName} />);
+
         return <h2 className="text-2xl font-bold">Transfer</h2>;
       case "allcampains":
         return <h2 className="text-2xl font-bold">All campaigns</h2>;
+
       case "rewards":
         return <h2 className="text-2xl font-bold">Rewards</h2>;
       case "transferOwnership":
